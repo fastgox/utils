@@ -1,3 +1,30 @@
+// Package logger provides a flexible logging system with YAML configuration support.
+//
+// The logger automatically organizes log files by date and log level, making it easy
+// to manage and analyze logs. It supports multiple log levels (debug, info, warn, error)
+// and provides both simple and formatted logging functions.
+//
+// Example usage:
+//
+//	// Initialize with default config (log.yml)
+//	err := logger.InitDefault()
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	// Use different log levels
+//	logger.Info("Application started")
+//	logger.Debugf("Processing user %s", username)
+//	logger.Warn("Low disk space")
+//	logger.Error("Database connection failed")
+//
+// Configuration file (log.yml) format:
+//
+//	base_dir: "logs"    # Base directory for log files
+//	log_type: "app"     # Application type identifier
+//
+// Log files are organized as: {base_dir}/{date}/{log_type}/{level}.log
+// For example: logs/2024-01-15/app/info.log
 package logger
 
 import (
