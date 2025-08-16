@@ -1,0 +1,8 @@
+level: info
+format: text
+file:
+  enabled: true
+  path: logs/app.log
+console:
+  enabled: true
+  disable_colors: false
