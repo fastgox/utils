@@ -2,6 +2,8 @@
 
 一个精心设计的Go工具包集合，专注于简洁实用，让开发更高效。
 
+
+
 ## 📦 安装
 
 ```bash
@@ -18,38 +20,7 @@ go get github.com/fastgox/utils
 - [JWT 令牌工具](./jwt/README.md) - JSON Web Token生成和验证
 - [测试示例](./test/README.md) - 所有工具的测试用例和使用示例
 
-### 基本使用示例
 
-```go
-package main
-
-import (
-    "fmt"
-    "github.com/fastgox/utils/log"
-    "github.com/fastgox/utils/config"
-    "github.com/fastgox/utils/crypto"
-)
-
-func main() {
-    // 日志记录
-    log.Info("应用启动")
-
-    // 配置管理
-    cfg := config.Load("config.yaml")
-
-    // 加密解密
-    encrypted, _ := crypto.AESEncrypt("hello world", "your-secret-key")
-    fmt.Println("加密结果:", encrypted)
-}
-```
-
-## ✅ 已实现工具
-
-- **Logger** - 结构化日志记录，支持多级别和格式化输出
-- **Config** - 配置文件管理，支持YAML、环境变量和热重载
-- **Crypto** - 加密工具集，包含AES、RSA、哈希和密码处理
-- **HTTP** - HTTP客户端封装，支持GET/POST/PUT/DELETE和超时控制
-- **JWT** - JSON Web Token工具，支持生成、验证和刷新
 
 ## 📋 工具开发计划 (TODO)
 
