@@ -22,6 +22,20 @@
 - **丰富字段**: 支持标准字段和自定义字段
 - **令牌刷新**: 内置令牌刷新功能
 
+### ⚙️ Config - 配置管理工具
+- **多格式支持**: 支持YAML、JSON、TOML等格式
+- **环境变量**: 自动映射和覆盖配置
+- **结构体绑定**: 类型安全的配置绑定
+- **配置验证**: 内置配置验证功能
+- **热重载**: 支持配置文件热重载
+
+### 🔐 Crypto - 加密工具
+- **AES加密**: 支持AES-128/192/256加密解密
+- **RSA加密**: 支持RSA公钥/私钥加密解密和数字签名
+- **哈希算法**: 支持MD5、SHA1、SHA256、SHA512
+- **密码哈希**: 支持bcrypt密码加盐哈希和强度检查
+- **工具函数**: 随机数生成、Base64/Hex编码等
+
 ## 📦 安装
 
 ```bash
@@ -86,10 +100,131 @@ func main() {
 }
 ```
 
+### Config 使用示例
+
+```go
+package main
+
+import (
+    "github.com/fastgox/utils/config"
+)
+
+type AppConfig struct {
+    App struct {
+        Name    string `config:"name" validate:"required"`
+        Version string `config:"version" validate:"required"`
+        Debug   bool   `config:"debug"`
+    } `config:"app"`
+
+    Server struct {
+        Host string `config:"host" validate:"required"`
+        Port int    `config:"port" validate:"min=1,max=65535"`
+    } `config:"server"`
+}
+
+func main() {
+    // 初始化配置
+    err := config.Init("config.yaml")
+    if err != nil {
+        panic(err)
+    }
+
+    // 获取配置值
+    appName := config.GetString("app.name")
+    serverPort := config.GetInt("server.port")
+
+    // 结构体绑定
+    var cfg AppConfig
+    err = config.Unmarshal(&cfg)
+    if err != nil {
+        panic(err)
+    }
+
+    // 配置验证
+    err = config.ValidateStruct(&cfg)
+    if err != nil {
+        panic(err)
+    }
+
+    // 环境变量覆盖
+    config.SetEnvPrefix("MYAPP")
+    config.BindEnv("server.port") // 对应 MYAPP_SERVER_PORT
+}
+```
+
+### Crypto 使用示例
+
+```go
+package main
+
+import (
+    "fmt"
+    "github.com/fastgox/utils/crypto"
+)
+
+func main() {
+    // AES加密解密
+    plaintext := "Hello, World!"
+    password := "my-secure-password"
+
+    encrypted, err := crypto.QuickEncrypt(plaintext, password)
+    if err != nil {
+        panic(err)
+    }
+
+    decrypted, err := crypto.QuickDecrypt(encrypted, password)
+    if err != nil {
+        panic(err)
+    }
+
+    // RSA加密解密
+    privateKey, publicKey, err := crypto.GenerateKeyPair()
+    if err != nil {
+        panic(err)
+    }
+
+    rsaEncrypted, err := crypto.RSAEncrypt("Hello, RSA!", publicKey)
+    if err != nil {
+        panic(err)
+    }
+
+    rsaDecrypted, err := crypto.RSADecrypt(rsaEncrypted, privateKey)
+    if err != nil {
+        panic(err)
+    }
+
+    // 哈希算法
+    md5Hash := crypto.MD5("Hello, Hash!")
+    sha256Hash := crypto.SHA256("Hello, Hash!")
+    hmacHash := crypto.HMACSHA256("data", "secret-key")
+
+    // 密码哈希
+    hashedPassword, err := crypto.HashPassword("my-password")
+    if err != nil {
+        panic(err)
+    }
+
+    isValid := crypto.CheckPassword("my-password", hashedPassword)
+    fmt.Printf("密码验证: %v\n", isValid)
+
+    // 生成强密码
+    strongPassword, err := crypto.GenerateStrongPassword(16)
+    if err != nil {
+        panic(err)
+    }
+
+    strength := crypto.CheckPasswordStrength(strongPassword)
+    fmt.Printf("生成的强密码: %s (强度: %s)\n", strongPassword, strength.String())
+}
+```
+
 ## 📚 详细文档
 
-- [Log 工具文档](./Log/README.md)
-- [HttpUtil 工具文档](./HttpUtil/README.md)
+- [Log 工具文档](./log/README.md)
+- [HttpUtil 工具文档](./http/README.md)
+- [JWT 工具文档](./jwt/README.md)
+- [Config 工具文档](./config/README.md)
+- [Crypto 工具文档](./crypto/README.md)
 
 ## 🎮 运行示例
 

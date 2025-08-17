@@ -1,0 +1,55 @@
+app:
+  name: "helwd-utils-demo"
+  version: "1.0.0"
+  debug: true
+  environment: "development"
+
+server:
+  host: "localhost"
+  port: 8080
+  timeout: "30s"
+  max_connections: 1000
+
+database:
+  host: "localhost"
+  port: 3306
+  username: "root"
+  password: "password"
+  dbname: "helwd_utils"
+  max_connections: 100
+  timeout: "10s"
+
+redis:
+  host: "localhost"
+  port: 6379
+  password: ""
+  db: 0
+  max_idle: 10
+  max_active: 100
+
+log:
+  level: "info"
+  format: "json"
+  output: "logs/app.log"
+  max_size: "100MB"
+  max_age: "7d"
+  compress: true
+
+jwt:
+  secret: "your-super-secret-key"
+  issuer: "helwd-utils"
+  expiration: "24h"
+
+email:
+  smtp:
+    host: "smtp.example.com"
+    port: 587
+    username: "your-email@example.com"
+    password: "your-password"
+  from: "noreply@example.com"
+
+features:
+  enable_cache: true
+  enable_metrics: true
+  enable_tracing: false
+  rate_limit: 1000
