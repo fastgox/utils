@@ -2,39 +2,73 @@
 
 一个精心设计的Go工具包集合，专注于简洁实用，让开发更高效。
 
-## 🚀 包含工具
+## 🚀 已实现工具
 
-### 📝 Log - 日志工具
-- **简洁配置**: 基于YAML的配置文件
-- **自动分类**: 按日期和级别自动组织日志文件
-- **多种级别**: Debug、Info、Warn、Error
-- **格式化支持**: 支持格式化日志输出
-
-### 🌐 HttpUtil - HTTP工具
-- **极简API**: 类似Java HttpUtil的调用方式
-- **表单支持**: 自动处理表单数据编码
-- **JSON处理**: 内置JSON编码/解码
-- **全局配置**: 支持全局认证和头部设置
-
-### 🔐 JWT - 令牌工具
-- **安全可靠**: 使用HMAC-SHA256签名算法
-- **灵活配置**: 支持全局配置和单次配置
-- **丰富字段**: 支持标准字段和自定义字段
-- **令牌刷新**: 内置令牌刷新功能
+### 📝 Logger - 日志工具
+提供灵活的日志系统，支持YAML配置、多级别日志记录和自动文件组织。
+[详细文档](./logs/README.md)
 
 ### ⚙️ Config - 配置管理工具
-- **多格式支持**: 支持YAML、JSON、TOML等格式
-- **环境变量**: 自动映射和覆盖配置
-- **结构体绑定**: 类型安全的配置绑定
-- **配置验证**: 内置配置验证功能
-- **热重载**: 支持配置文件热重载
+支持多格式配置文件、环境变量映射、结构体绑定、配置验证和热重载。
+[详细文档](./config/README.md)
 
 ### 🔐 Crypto - 加密工具
-- **AES加密**: 支持AES-128/192/256加密解密
-- **RSA加密**: 支持RSA公钥/私钥加密解密和数字签名
-- **哈希算法**: 支持MD5、SHA1、SHA256、SHA512
-- **密码哈希**: 支持bcrypt密码加盐哈希和强度检查
-- **工具函数**: 随机数生成、Base64/Hex编码等
+提供AES/RSA加密、哈希算法、密码处理和各种加密工具函数。
+[详细文档](./crypto/README.md)
+
+## 📋 工具开发计划 (TODO)
+
+### 🌐 HttpUtil - HTTP工具 (计划中)
+- [ ] GET/POST/PUT/DELETE 请求封装
+- [ ] 表单数据自动编码
+- [ ] JSON 请求/响应处理
+- [ ] 全局认证和头部设置
+- [ ] 请求重试机制
+- [ ] 超时控制
+
+### 🔐 JWT - 令牌工具 (计划中)
+- [ ] HMAC-SHA256 签名算法
+- [ ] 标准字段和自定义字段支持
+- [ ] 令牌生成和验证
+- [ ] 令牌刷新功能
+- [ ] 过期时间管理
+
+### 📊 Database - 数据库工具 (计划中)
+- [ ] MySQL 连接池管理
+- [ ] Redis 客户端封装
+- [ ] 事务处理
+- [ ] 查询构建器
+- [ ] 数据迁移工具
+
+### 🔧 Validator - 验证工具 (计划中)
+- [ ] 结构体字段验证
+- [ ] 自定义验证规则
+- [ ] 错误信息国际化
+- [ ] 嵌套结构验证
+
+### 📧 Email - 邮件工具 (计划中)
+- [ ] SMTP 邮件发送
+- [ ] HTML/文本邮件支持
+- [ ] 附件处理
+- [ ] 邮件模板
+
+### 🕒 Time - 时间工具 (计划中)
+- [ ] 时间格式化
+- [ ] 时区转换
+- [ ] 时间计算
+- [ ] 定时任务
+
+### 📁 File - 文件工具 (计划中)
+- [ ] 文件上传下载
+- [ ] 文件压缩解压
+- [ ] 文件类型检测
+- [ ] 目录操作
+
+### 🔄 Cache - 缓存工具 (计划中)
+- [ ] 内存缓存
+- [ ] Redis 缓存
+- [ ] 缓存策略
+- [ ] 过期管理
 
 ## 📦 安装
 
@@ -44,185 +78,8 @@ go get github.com/fastgox/utils
 
 ## 🎯 快速开始
 
-### Log 使用示例
-
-```go
-package main
-
-import (
-    "github.com/fastgox/utils/Log"
-)
-
-func main() {
-    // 初始化日志
-    err := Log.InitDefault()
-    if err != nil {
-        panic(err)
-    }
-
-    // 使用日志
-    Log.Info("应用启动成功")
-    Log.Debugf("处理用户: %s", "helwd")
-    Log.Warn("磁盘空间不足")
-    Log.Error("数据库连接失败")
-}
-```
-
-### HttpUtil 使用示例
-
-```go
-package main
-
-import (
-    "github.com/fastgox/utils/HttpUtil"
-)
-
-func main() {
-    // GET请求
-    result, err := HttpUtil.Get("https://api.example.com/users")
-    if err != nil {
-        panic(err)
-    }
-
-    // POST表单数据（推荐用法）
-    paramMap := map[string]interface{}{
-        "city": "北京",
-        "name": "helwd",
-    }
-    result, err = HttpUtil.Post("https://api.example.com/search", paramMap)
-
-    // POST JSON数据
-    data := map[string]interface{}{
-        "user": "helwd",
-        "message": "Hello World",
-    }
-    result, err = HttpUtil.PostJSON("https://api.example.com/messages", data)
-}
-```
-
-### Config 使用示例
-
-```go
-package main
-
-import (
-    "github.com/fastgox/utils/config"
-)
-
-type AppConfig struct {
-    App struct {
-        Name    string `config:"name" validate:"required"`
-        Version string `config:"version" validate:"required"`
-        Debug   bool   `config:"debug"`
-    } `config:"app"`
-
-    Server struct {
-        Host string `config:"host" validate:"required"`
-        Port int    `config:"port" validate:"min=1,max=65535"`
-    } `config:"server"`
-}
-
-func main() {
-    // 初始化配置
-    err := config.Init("config.yaml")
-    if err != nil {
-        panic(err)
-    }
-
-    // 获取配置值
-    appName := config.GetString("app.name")
-    serverPort := config.GetInt("server.port")
-
-    // 结构体绑定
-    var cfg AppConfig
-    err = config.Unmarshal(&cfg)
-    if err != nil {
-        panic(err)
-    }
-
-    // 配置验证
-    err = config.ValidateStruct(&cfg)
-    if err != nil {
-        panic(err)
-    }
-
-    // 环境变量覆盖
-    config.SetEnvPrefix("MYAPP")
-    config.BindEnv("server.port") // 对应 MYAPP_SERVER_PORT
-}
-```
-
-### Crypto 使用示例
-
-```go
-package main
-
-import (
-    "fmt"
-    "github.com/fastgox/utils/crypto"
-)
-
-func main() {
-    // AES加密解密
-    plaintext := "Hello, World!"
-    password := "my-secure-password"
-
-    encrypted, err := crypto.QuickEncrypt(plaintext, password)
-    if err != nil {
-        panic(err)
-    }
-
-    decrypted, err := crypto.QuickDecrypt(encrypted, password)
-    if err != nil {
-        panic(err)
-    }
-
-    // RSA加密解密
-    privateKey, publicKey, err := crypto.GenerateKeyPair()
-    if err != nil {
-        panic(err)
-    }
-
-    rsaEncrypted, err := crypto.RSAEncrypt("Hello, RSA!", publicKey)
-    if err != nil {
-        panic(err)
-    }
-
-    rsaDecrypted, err := crypto.RSADecrypt(rsaEncrypted, privateKey)
-    if err != nil {
-        panic(err)
-    }
-
-    // 哈希算法
-    md5Hash := crypto.MD5("Hello, Hash!")
-    sha256Hash := crypto.SHA256("Hello, Hash!")
-    hmacHash := crypto.HMACSHA256("data", "secret-key")
-
-    // 密码哈希
-    hashedPassword, err := crypto.HashPassword("my-password")
-    if err != nil {
-        panic(err)
-    }
-
-    isValid := crypto.CheckPassword("my-password", hashedPassword)
-    fmt.Printf("密码验证: %v\n", isValid)
-
-    // 生成强密码
-    strongPassword, err := crypto.GenerateStrongPassword(16)
-    if err != nil {
-        panic(err)
-    }
-
-    strength := crypto.CheckPasswordStrength(strongPassword)
-    fmt.Printf("生成的强密码: %s (强度: %s)\n", strongPassword, strength.String())
-}
-```
-
-## 📚 详细文档
-
-- [Log 工具文档](./log/README.md)
-- [HttpUtil 工具文档](./http/README.md)
-- [JWT 工具文档](./jwt/README.md)
+查看各工具的详细使用方法：
+- [Logger 工具文档](./logs/README.md)
 - [Config 工具文档](./config/README.md)
 - [Crypto 工具文档](./crypto/README.md)
 
