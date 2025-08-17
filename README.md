@@ -2,36 +2,56 @@
 
 一个精心设计的Go工具包集合，专注于简洁实用，让开发更高效。
 
-## 🚀 已实现工具
+## 📦 安装
 
-### 📝 Logger - 日志工具
-提供灵活的日志系统，支持YAML配置、多级别日志记录和自动文件组织。
-[详细文档](./logs/README.md)
+```bash
+go get github.com/fastgox/utils
+```
 
-### ⚙️ Config - 配置管理工具
-支持多格式配置文件、环境变量映射、结构体绑定、配置验证和热重载。
-[详细文档](./config/README.md)
+## 🎯 快速开始
 
-### 🔐 Crypto - 加密工具
-提供AES/RSA加密、哈希算法、密码处理和各种加密工具函数。
-[详细文档](./crypto/README.md)
+查看各工具的详细使用方法：
+- [Logger 日志工具](./log/README.md) - 结构化日志记录
+- [Config 配置工具](./config/README.md) - 配置文件管理和环境变量
+- [Crypto 加密工具](./crypto/README.md) - AES/RSA加密、哈希和密码处理
+- [HTTP 客户端工具](./http/README.md) - HTTP请求封装和客户端
+- [JWT 令牌工具](./jwt/README.md) - JSON Web Token生成和验证
+- [测试示例](./test/README.md) - 所有工具的测试用例和使用示例
+
+### 基本使用示例
+
+```go
+package main
+
+import (
+    "fmt"
+    "github.com/fastgox/utils/log"
+    "github.com/fastgox/utils/config"
+    "github.com/fastgox/utils/crypto"
+)
+
+func main() {
+    // 日志记录
+    log.Info("应用启动")
+
+    // 配置管理
+    cfg := config.Load("config.yaml")
+
+    // 加密解密
+    encrypted, _ := crypto.AESEncrypt("hello world", "your-secret-key")
+    fmt.Println("加密结果:", encrypted)
+}
+```
+
+## ✅ 已实现工具
+
+- **Logger** - 结构化日志记录，支持多级别和格式化输出
+- **Config** - 配置文件管理，支持YAML、环境变量和热重载
+- **Crypto** - 加密工具集，包含AES、RSA、哈希和密码处理
+- **HTTP** - HTTP客户端封装，支持GET/POST/PUT/DELETE和超时控制
+- **JWT** - JSON Web Token工具，支持生成、验证和刷新
 
 ## 📋 工具开发计划 (TODO)
-
-### 🌐 HttpUtil - HTTP工具 (计划中)
-- [ ] GET/POST/PUT/DELETE 请求封装
-- [ ] 表单数据自动编码
-- [ ] JSON 请求/响应处理
-- [ ] 全局认证和头部设置
-- [ ] 请求重试机制
-- [ ] 超时控制
-
-### 🔐 JWT - 令牌工具 (计划中)
-- [ ] HMAC-SHA256 签名算法
-- [ ] 标准字段和自定义字段支持
-- [ ] 令牌生成和验证
-- [ ] 令牌刷新功能
-- [ ] 过期时间管理
 
 ### 📊 Database - 数据库工具 (计划中)
 - [ ] MySQL 连接池管理
@@ -70,39 +90,8 @@
 - [ ] 缓存策略
 - [ ] 过期管理
 
-## 📦 安装
 
-```bash
-go get github.com/fastgox/utils
-```
 
-## 🎯 快速开始
-
-查看各工具的详细使用方法：
-- [Logger 工具文档](./logs/README.md)
-- [Config 工具文档](./config/README.md)
-- [Crypto 工具文档](./crypto/README.md)
-
-## 🎮 运行示例
-
-```bash
-# 克隆项目
-git clone https://github.com/fastgox/utils.git
-cd utils
-
-# 运行示例
-go run main.go
-```
-
-这将演示所有工具的功能，并生成示例配置文件。
-
-## 🌟 特色
-
-- **🎯 专注实用**: 只包含最常用的功能，避免过度设计
-- **📝 简洁API**: 链式调用，代码简洁优雅
-- **⚡ 开箱即用**: 无需复杂配置，直接使用
-- **🔧 灵活配置**: 支持配置文件和代码配置
-- **💡 最佳实践**: 遵循Go语言最佳实践
 
 ## 🤝 贡献
 
