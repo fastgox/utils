@@ -23,19 +23,17 @@ func TestHTTPClient(t *testing.T) {
 	httpclient.SetAuth("Bearer new-token")
 	httpclient.SetHeader("X-Test", "test-value")
 
-	// 测试Meta参数
-	customTimeout := 5 * time.Second
-	customAuth := "custom-auth"
-	meta := &httpclient.Meta{
-		Timeout: &customTimeout,
-		Auth:    &customAuth,
+	// 测试Config参数
+	config := &httpclient.Config{
+		Timeout: 5 * time.Second,
+		Auth:    "custom-auth",
 		Headers: map[string]string{
 			"Custom-Header": "custom-value",
 		},
 	}
 
-	if *meta.Timeout != 5*time.Second {
-		t.Errorf("期望Meta超时时间为5秒，实际为%v", *meta.Timeout)
+	if config.Timeout != 5*time.Second {
+		t.Errorf("期望Config超时时间为5秒，实际为%v", config.Timeout)
 	}
 
 	// 测试URL构建功能
