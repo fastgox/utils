@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	logger "github.com/fastgox/utils/log"
+	"github.com/fastgox/utils/logger"
 )
 
 func TestLogger(t *testing.T) {
@@ -48,4 +48,9 @@ func TestLogger(t *testing.T) {
 
 	// 关闭所有logger
 	logger.CloseAll()
+}
+func TestLogger2(t *testing.T) {
+	logger.InitWithPath("test_logs")
+	// 初始化日志系统
+	logger.Info("测试日志")
 }
