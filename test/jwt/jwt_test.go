@@ -1,4 +1,4 @@
-package test
+package jwt_test
 
 import (
 	"testing"
