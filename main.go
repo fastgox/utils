@@ -7,7 +7,7 @@ import (
 	"github.com/fastgox/utils/config"
 	"github.com/fastgox/utils/crypto"
 	"github.com/fastgox/utils/jwt"
-	logger "github.com/fastgox/utils/log"
+	"github.com/fastgox/utils/logger"
 )
 
 // AppConfig 应用配置结构体
